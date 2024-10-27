@@ -1,23 +1,10 @@
-import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import type { MeLoader } from "./loaders/meLoader";
 
 function Me() {
-  const [data, setData] = useState("");
-  console.log("data", data);
-  useEffect(() => {
-    const fetchData = async () => {
-      const delayedData = await new Promise<string>((resolve) => {
-        setTimeout(() => {
-          resolve("this is some data");
-        }, 1000);
-      });
-      if (delayedData) {
-        setData(delayedData);
-      }
-    };
-    fetchData();
-  }, []);
+  const loaderData = useLoaderData() as MeLoader;
 
-  return <div>{data ? data : "loading"}</div>;
+  return <div>{loaderData.message ? loaderData.message : "loading"}</div>;
 }
 
 export default Me;
